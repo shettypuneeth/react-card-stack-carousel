@@ -1,0 +1,32 @@
+.rcsc-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    perspective: 90em;
+}
+
+.rcsc-item {
+    position: absolute;
+    overflow: hidden;
+    width: 100%;
+}
+
+.rcsc-nav-container {
+    position: absolute;
+    bottom: -25px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 10;
+}
+
+.rcsc-nav-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+}

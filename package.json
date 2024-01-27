@@ -1,0 +1,28 @@
+{
+    "name": "react-card-stack-carousel",
+    "version": "1.0.0",
+    "description": "A carousel component for React",
+    "main": "index.js",
+    "scripts": {
+        "dev": "vite ./playground"
+    },
+    "keywords": [
+        "react",
+        "carousel"
+    ],
+    "include": [
+        "src/**/*",
+        "types/**/*"
+    ],
+    "types": "types/index.d.ts",
+    "author": "Puneeth Shetty",
+    "license": "MIT",
+    "dependencies": {
+        "react": "*",
+        "react-dom": "*"
+    },
+    "devDependencies": {
+        "@vitejs/plugin-react": "^4.2.1",
+        "vite": "^5.0.12"
+    }
+}
