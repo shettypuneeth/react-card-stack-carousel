@@ -1,6 +1,6 @@
 {
     "name": "react-card-stack-carousel",
-    "version": "1.0.0",
+    "version": "0.1.0",
     "description": "A carousel component for React",
     "main": "index.js",
     "scripts": {
@@ -8,10 +8,13 @@
     },
     "keywords": [
         "react",
-        "carousel"
+        "carousel",
+        "image-carousel",
+        "card-stack"
     ],
     "include": [
         "src/**/*",
+        "dist/**/*",
         "types/**/*"
     ],
     "types": "types/index.d.ts",

@@ -6,7 +6,7 @@ const DIRECTION = { None: 0, Next: 1, Previous: 2 };
 const DEFAULT_AUTOPLAY = false;
 const DEFAULT_AUTOPLAY_INTERVAL = 4000;
 const DEFAULT_EASING_FUNCTION = "cubic-bezier(0.93, 0.01, 0.39, 1.01)";
-const DEFAULT_TRANSITION_DURATION = 400;
+const DEFAULT_TRANSITION_DURATION = 450;
 const DEFAULT_START_INDEX = 0;
 const DEFAULT_VERTICAL_OFFSET = 10;
 const DEFAULT_SCALE_FACTOR = 0.9;
@@ -104,7 +104,7 @@ export const useCardStackCarousel = (config) => {
             // reset the delay during transition setup for immediate effect
             delay = 0;
             if (virtualIndex === totalCount - 1) {
-                tY = `-${75 + totalCount * 2}%`;
+                tY = `-${72}%`;
                 opacity = 0.6;
                 rotateX = 65;
             } else {

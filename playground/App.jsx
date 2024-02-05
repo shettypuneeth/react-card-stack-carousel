@@ -3,10 +3,11 @@ import { StackedCarousel } from "react-card-stack-carousel";
 import "react-card-stack-carousel/dist/styles.css";
 
 export default function App() {
-    const cardWidth = 500;
-    const cardHeight = 500;
+    const cardWidth = 200;
+    const cardHeight = 200;
 
     const cardStyles = { width: cardWidth, height: cardHeight };
+
     return (
         <main className="container">
             <StackedCarousel autoplay={false} height={cardHeight}>

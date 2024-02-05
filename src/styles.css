@@ -16,6 +16,7 @@
     display: flex;
     justify-content: center;
     z-index: 10;
+    background-color: #1f2937;
 }
 
 .rcsc-nav-icon {

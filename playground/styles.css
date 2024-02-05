@@ -23,17 +23,24 @@ body {
 }
 
 .bg-color-1 {
-    background-color: red;
+    background-color: #eb2f06;
 }
 
 .bg-color-2 {
-    background-color: blue;
+    background-color: #fa983a;
 }
 
 .bg-color-3 {
-    background-color: green;
+    background-color: #079992;
 }
 
 .bg-color-4 {
-    background-color: violet;
+    background-color: #1e3799;
+}
+
+.card-image {
+    width: auto;
+    height: 500px;
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
 }

@@ -2,11 +2,13 @@
 
 Stacked card carousal component with configurable 3D transition effect.
 
-# Getting started
+## Demo
 
-## Install
+<img src="./demo/card-carousel.gif" width="300" />
 
-Install react-card-stack-carousel from NPM
+## Getting started
+
+#### Install react-card-stack-carousel from NPM
 
 ```sh
 npm i react-card-stack-carousel
@@ -16,47 +18,39 @@ npm i react-card-stack-carousel
 yarn add react-card-stack-carousel
 ```
 
-## Import react-card-stack-carousel styles
+#### Import react-card-stack-carousel styles
 
 ```tsx
 // import base styles at the top of your component
 import "react-card-stack-carousel/dist/styles.css";
 ```
 
-# Usage
+## Usage
 
 > NOTE: StackedCarousel requires a _height_ property to be specified
 
 ```tsx
 import React from "react";
 import { StackedCarousel } from "react-card-stack-carousel";
-
-import "react-card-stack-carousel/dist/styles.css";
+import "react-card-stack-carousel/dist/styles.css"; // import base styles
 
 export default function App() {
-    const cardWidth = 500;
-    const cardHeight = 500;
+    // specify container height
+    const containerHeight = 500;
 
-    const cardStyles = { width: cardWidth, height: cardHeight };
     return (
         <main className="container">
-            <StackedCarousel height={cardHeight}>
-                <div className="sample-card bg-color-1" style={cardStyles}>
-                    0
-                </div>
-                <div className="sample-card bg-color-2" style={cardStyles}>
-                    1
-                </div>
-                <div className="sample-card bg-color-3" style={cardStyles}>
-                    2
-                </div>
+            <StackedCarousel height={containerHeight}>
+                <div className="sample-card bg-color-1">0</div>
+                <div className="sample-card bg-color-2">1</div>
+                <div className="sample-card bg-color-3">2</div>
             </StackedCarousel>
         </main>
     );
 }
 ```
 
-# Props
+## Props
 
 | Prop                    | Type      | Default                              | Required | Description                                       |
 | ----------------------- | --------- | ------------------------------------ | -------- | ------------------------------------------------- |
@@ -74,7 +68,7 @@ export default function App() {
 | `transitionDuration`    | number    | 400                                  | No       | Duration of the transitions in milliseconds.      |
 | `verticalOffset`        | number    | 10                                   | No       | % vertical offset for the carousel items.         |
 
-# Running locally
+## Running locally
 
 1. Clone the repo and install the dependencies. In the repo's root, run
 
@@ -99,7 +93,7 @@ cd ./playground
 yarn dev
 ```
 
-# Todo
+## Todo
 
-[ ] Auto compute the container height based on height of the active card
-[ ] Plugin system to enable custom transition styles
+-   [ ] Auto compute the container height based on height of the active card
+-   [ ] Plugin system to enable custom transition styles
