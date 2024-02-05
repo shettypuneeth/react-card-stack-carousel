@@ -8,19 +8,26 @@ export default React.memo(function CarousalItem(props) {
         opacity,
         rotateX,
         scale,
-        top,
+        tX,
+        tY,
+        tZ,
         zIndex,
         children,
     } = props;
 
     const duration = transitionDuration / 1000;
     const transition = `opacity ${duration}s ${easing}, transform ${duration}s ${easing}`;
+    const transform = `
+        translate3d(${tX}, ${tY}, ${tZ})
+        rotateX(${rotateX}deg)
+        scale(${scale})
+    `;
 
     const style = {
         opacity,
         transition,
         transitionDelay: `${delay}s, ${delay}s`,
-        transform: `scale(${scale}) translateY(${top}px) rotateX(${rotateX}deg)`,
+        transform,
         zIndex,
     };
 

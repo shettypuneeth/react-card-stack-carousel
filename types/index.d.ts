@@ -1,19 +1,21 @@
-declare module "CarousalItem" {
+declare module "react-card-stack-carousel" {
     import { ReactNode } from "react";
 
-    export interface CarousalItemProps {
-        easing: string;
-        delay: number;
-        duration: string;
+    export interface StackedCarouselProps {
         height: number;
-        opacity: number;
-        rotateX: number;
-        scale: number;
-        top: number;
-        zIndex: number;
+        children: ReactNode;
+        autoplay?: boolean;
+        autoplayInterval?: number;
+        containerClassName?: string;
+        easingFunction?: string;
+        navContainerClassName?: string;
+        onNext?: () => void;
+        onPrevious?: () => void;
+        scaleFactor?: number;
+        startIndex?: number;
+        transitionDuration?: number;
+        verticalOffset?: number;
     }
 
-    const CarousalItem: (props: CarousalItemProps) => ReactNode;
-
-    export default CarousalItem;
+    export const StackedCarousel: (props: StackedCarouselProps) => ReactNode;
 }

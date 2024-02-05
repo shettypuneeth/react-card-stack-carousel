@@ -3,26 +3,32 @@ import { useCardStackCarousel } from "./useCardStackCarousel";
 import CarousalItem from "./CarousalItem";
 import Navigation from "./Navigation";
 
-export function ReactCardStackCarousel(props) {
+export function StackedCarousel(props) {
     const {
-        children,
         autoplay,
-        height,
-        width,
+        autoplayInterval,
+        children,
+        containerClassName,
         easingFunction,
+        height,
+        navContainerClassName,
+        onNext,
+        onPrevious,
         scaleFactor,
         startIndex,
         transitionDuration,
         verticalOffset,
     } = props;
 
-    const { onNext, onPrevious, getState } = useCardStackCarousel({
+    const { handleNext, handlePrevious, getState } = useCardStackCarousel({
         autoplay,
-        containerHeight: height,
-        totalCount: children.length,
+        autoplayInterval,
         easingFunction,
+        onNext,
+        onPrevious,
         scaleFactor,
         startIndex,
+        totalCount: children.length,
         transitionDuration,
         verticalOffset,
     });
@@ -39,11 +45,18 @@ export function ReactCardStackCarousel(props) {
         });
     };
 
+    const styles = { height };
+    const containerClasses = `rcsc-container ${containerClassName || ""}`;
+
     return (
-        <section className="rcsc-container" style={{ height, width }}>
+        <section className={containerClasses} style={styles}>
             {renderCards()}
 
-            <Navigation onNext={onNext} onPrevious={onPrevious} />
+            <Navigation
+                className={navContainerClassName}
+                onNext={handleNext}
+                onPrevious={handlePrevious}
+            />
         </section>
     );
 }

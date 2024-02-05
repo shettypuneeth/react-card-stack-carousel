@@ -10,18 +10,30 @@ body {
 
 .container {
     position: relative;
-    transform-style: preserve-3d;
 }
 
 .sample-card {
     border-radius: 5px;
-    transform-style: preserve-3d;
     display: flex;
     justify-content: center;
     align-items: center;
     color: #fff;
     font-family: sans-serif;
     font-size: 1.5em;
-    width: 100px;
-    height: 100px;
+}
+
+.bg-color-1 {
+    background-color: red;
+}
+
+.bg-color-2 {
+    background-color: blue;
+}
+
+.bg-color-3 {
+    background-color: green;
+}
+
+.bg-color-4 {
+    background-color: violet;
 }

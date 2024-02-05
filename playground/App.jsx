@@ -1,34 +1,28 @@
 import React from "react";
-import { ReactCardStackCarousel } from "react-card-stack-carousel";
-import "react-card-stack-carousel/src/styles.css";
+import { StackedCarousel } from "react-card-stack-carousel";
+import "react-card-stack-carousel/dist/styles.css";
 
 export default function App() {
+    const cardWidth = 500;
+    const cardHeight = 500;
+
+    const cardStyles = { width: cardWidth, height: cardHeight };
     return (
         <main className="container">
-            <ReactCardStackCarousel
-                autoplay={false}
-                height={100}
-                startIndex={0}
-                transitionDuration={500}
-                verticalOffset={5}
-                width={100}
-            >
-                <div className="sample-card" style={{ backgroundColor: "red" }}>
+            <StackedCarousel autoplay={false} height={cardHeight}>
+                <div className="sample-card bg-color-1" style={cardStyles}>
+                    0
+                </div>
+                <div className="sample-card bg-color-2" style={cardStyles}>
                     1
                 </div>
-                <div
-                    className="sample-card"
-                    style={{ backgroundColor: "blue" }}
-                >
+                <div className="sample-card bg-color-3" style={cardStyles}>
                     2
                 </div>
-                <div
-                    className="sample-card"
-                    style={{ backgroundColor: "green" }}
-                >
+                <div className="sample-card bg-color-4" style={cardStyles}>
                     3
                 </div>
-            </ReactCardStackCarousel>
+            </StackedCarousel>
         </main>
     );
 }

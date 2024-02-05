@@ -1,21 +1,18 @@
 import { useState, useRef, useEffect } from "react";
 
-const TRANSITION_STATE = {
-    IDLE: 0,
-    ENTERING_NEXT: 1,
-    ENTERING_PREVIOUS: 2,
-};
+const TRANSITION_STATE = { Idle: 0, EnteringNext: 1, EnteringPrevious: 2 };
+const DIRECTION = { None: 0, Next: 1, Previous: 2 };
 
-const CARD_OFFSET_SMALL = 25;
 const DEFAULT_AUTOPLAY = false;
 const DEFAULT_AUTOPLAY_INTERVAL = 4000;
 const DEFAULT_EASING_FUNCTION = "cubic-bezier(0.93, 0.01, 0.39, 1.01)";
-const DEFAULT_TRANSITION_DURATION = 450;
+const DEFAULT_TRANSITION_DURATION = 400;
 const DEFAULT_START_INDEX = 0;
-const DEFAULT_VERTICAL_OFFSET = 35;
-const DEFAULT_SCALE_FACTOR = 0.08;
+const DEFAULT_VERTICAL_OFFSET = 10;
+const DEFAULT_SCALE_FACTOR = 0.9;
 const DEFAULT_DELAY_FACTOR = 0.08;
 const DEFAULT_OPACITY_FACTOR = 0.15;
+const DEFAULT_OFFSET_DAMPENING_FACTOR = 0.5;
 
 /**
  * Custom hook managing the state, transitions and styling of the carousel
@@ -24,7 +21,6 @@ const DEFAULT_OPACITY_FACTOR = 0.15;
  */
 export const useCardStackCarousel = (config) => {
     const {
-        containerHeight,
         easing = DEFAULT_EASING_FUNCTION,
         scaleFactor = DEFAULT_SCALE_FACTOR,
         startIndex = DEFAULT_START_INDEX,
@@ -35,9 +31,9 @@ export const useCardStackCarousel = (config) => {
 
     const [activeIndex, setActiveIndex] = useState(startIndex);
     const [transitionState, setTransitionState] = useState(
-        TRANSITION_STATE.IDLE
+        TRANSITION_STATE.Idle
     );
-    const transitionTimer = useRef(null);
+    const direction = useRef(DIRECTION.None);
 
     const validateParams = () => {
         if (startIndex >= totalCount) {
@@ -47,58 +43,68 @@ export const useCardStackCarousel = (config) => {
         }
     };
 
-    const getDelayInMs = (virtualIndex, count) => {
-        let delay = 0;
-        const isBoundary = virtualIndex === count - 1;
+    const getDelayInMs = (virtualIndex, totalCount) => {
+        const ceilIndex = totalCount - 1;
+        const isForwardBoundary =
+            direction.current === DIRECTION.Next && virtualIndex === ceilIndex;
+        const isBackwardBoundary =
+            direction.current === DIRECTION.Previous && virtualIndex === 0;
 
-        if (isBoundary) {
-            delay = 0;
+        if (isForwardBoundary || isBackwardBoundary) {
+            return 0;
         } else {
-            delay = (1 + virtualIndex) * DEFAULT_DELAY_FACTOR;
+            if (direction.current === DIRECTION.Next) {
+                return (1 + virtualIndex) * DEFAULT_DELAY_FACTOR;
+            } else if (direction.current === DIRECTION.Previous) {
+                return (totalCount - virtualIndex) * DEFAULT_DELAY_FACTOR;
+            }
         }
-
-        return delay;
     };
 
-    const getTop = (index, offset, scaleFactor) => {
-        const progress = Math.min(index, 5);
-        const top = -progress * (offset + (scaleFactor * containerHeight) / 3);
-        return top;
+    const getCoordinates = (progress, offset, scaleFactor) => {
+        const tX = 0;
+        const tY = `${
+            -progress * (offset - progress * DEFAULT_OFFSET_DAMPENING_FACTOR)
+        }%`;
+
+        const scale = (1 - scaleFactor) * 1000;
+        const tZ = `${-scale * progress}px`;
+
+        return { tX, tY, tZ };
     };
 
     const getState = (index) => {
-        const isSmallScreen = containerHeight < 500;
         let virtualIndex = index - activeIndex;
         if (virtualIndex < 0) {
             virtualIndex = totalCount + virtualIndex;
         }
 
-        const offset = isSmallScreen ? CARD_OFFSET_SMALL : verticalOffset;
-        const scale = 1 - virtualIndex * scaleFactor;
+        const progress = Math.min(virtualIndex, 5);
+        const offset = verticalOffset;
+        const scale = 1;
 
         let delay = getDelayInMs(virtualIndex, totalCount);
-        let top = getTop(virtualIndex, offset, scaleFactor);
+        let { tX, tY, tZ } = getCoordinates(progress, offset, scaleFactor);
         const zIndex = totalCount - virtualIndex;
         let opacity = 1 - virtualIndex * DEFAULT_OPACITY_FACTOR;
         let rotateX = 0;
 
-        if (transitionState === TRANSITION_STATE.ENTERING_NEXT) {
-            // set the delay during begin transition
+        if (transitionState === TRANSITION_STATE.EnteringNext) {
+            // reset the delay during transition setup for immediate effect
             delay = 0;
             if (virtualIndex === 0) {
-                const offset = isSmallScreen ? 0.7 : 0.65;
-                top -= Math.round(containerHeight * offset);
-                opacity = 0.8;
+                tY = `-${50 + verticalOffset}%`;
                 rotateX = -90;
             } else {
                 rotateX = -10;
             }
         }
 
-        if (transitionState === TRANSITION_STATE.ENTERING_PREVIOUS) {
+        if (transitionState === TRANSITION_STATE.EnteringPrevious) {
+            // reset the delay during transition setup for immediate effect
             delay = 0;
             if (virtualIndex === totalCount - 1) {
-                top -= Math.round(containerHeight * 0.5);
+                tY = `-${75 + totalCount * 2}%`;
                 opacity = 0.6;
                 rotateX = 65;
             } else {
@@ -109,55 +115,55 @@ export const useCardStackCarousel = (config) => {
         return {
             delay,
             easing,
-            height: containerHeight,
             opacity,
             rotateX,
             scale,
-            top,
+            tX,
+            tY,
+            tZ,
             transitionDuration,
             zIndex,
         };
     };
 
-    const onNext = () => {
-        setTransitionState(TRANSITION_STATE.ENTERING_NEXT);
+    const handleTransition = (nextDirection, nextTransition, getNextIndex) => {
+        direction.current = nextDirection;
+        setTransitionState(nextTransition);
 
-        transitionTimer.current = setTimeout(() => {
-            setActiveIndex((activeIndex) => {
-                const nextIndex = activeIndex + 1;
-                const targetIndex = nextIndex >= totalCount ? 0 : nextIndex;
-                return targetIndex;
-            });
-
-            setTransitionState(TRANSITION_STATE.IDLE);
+        setTimeout(() => {
+            setActiveIndex(getNextIndex);
+            setTransitionState(TRANSITION_STATE.Idle);
         }, transitionDuration);
     };
 
-    const onPrevious = () => {
-        setTransitionState(TRANSITION_STATE.ENTERING_PREVIOUS);
+    const handleNext = () => {
+        handleTransition(
+            DIRECTION.Next,
+            TRANSITION_STATE.EnteringNext,
+            (activeIndex) => (activeIndex + 1) % totalCount
+        );
+        config.onNext && config.onNext();
+    };
 
-        transitionTimer.current = setTimeout(() => {
-            setActiveIndex((activeIndex) => {
-                const previousIndex = activeIndex - 1;
-                const targetIndex =
-                    previousIndex < 0 ? totalCount - 1 : previousIndex;
-                return targetIndex;
-            });
-
-            setTransitionState(TRANSITION_STATE.IDLE);
-        }, transitionDuration);
+    const handlePrevious = () => {
+        handleTransition(
+            DIRECTION.Previous,
+            TRANSITION_STATE.EnteringPrevious,
+            (activeIndex) => (activeIndex - 1 + totalCount) % totalCount
+        );
+        config.onPrevious && config.onPrevious();
     };
 
     useEffect(() => {
         validateParams();
     }, []);
 
-    useAutoPlay(config, onNext);
+    useAutoPlay(config, handleNext);
 
     return {
         activeIndex,
-        onNext,
-        onPrevious,
+        handleNext,
+        handlePrevious,
         getState,
     };
 };

@@ -1,14 +1,13 @@
 import { ArrowLeft, ArrowRight } from "./Icons";
 
 export default function Navigation(props) {
-    const { onNext, onPrevious, isSmallScreen } = props;
-    const arrowSize = isSmallScreen ? 16 : 18;
+    const { className = "", onNext, onPrevious } = props;
+    const arrowSize = 16;
 
-    const className =
-        "bg-zinc-700 w-8 h-8 flex justify-center items-center rounded-full cursor-pointer hover:bg-zinc-500";
+    const containerClasses = `rcsc-nav-container ${className}`;
 
     return (
-        <nav className="rcsc-nav-container">
+        <nav className={containerClasses}>
             <div onClick={onPrevious} className="rcsc-nav-icon">
                 <ArrowLeft color="#fff" size={arrowSize} />
             </div>

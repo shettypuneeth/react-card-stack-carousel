@@ -1,1 +1,1 @@
-export * from "./src/ReactCardStackCarousel";
+export * from "./src/StackedCarousel";
