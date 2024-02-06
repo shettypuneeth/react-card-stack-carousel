@@ -6,6 +6,8 @@ Stacked card carousal component with configurable 3D transition effect.
 
 <img src="./demo/card-carousel.gif" width="300" />
 
+<img src="./demo/image-carousel.gif" width="300" />
+
 ## Getting started
 
 #### Install react-card-stack-carousel from NPM
@@ -22,7 +24,7 @@ yarn add react-card-stack-carousel
 
 ```tsx
 // import base styles at the top of your component
-import "react-card-stack-carousel/dist/styles.css";
+import "react-card-stack-carousel/styles/styles.css";
 ```
 
 ## Usage
@@ -32,11 +34,11 @@ import "react-card-stack-carousel/dist/styles.css";
 ```tsx
 import React from "react";
 import { StackedCarousel } from "react-card-stack-carousel";
-import "react-card-stack-carousel/dist/styles.css"; // import base styles
+import "react-card-stack-carousel/styles/styles.css"; // import base styles
 
 export default function App() {
     // specify container height
-    const containerHeight = 500;
+    const containerHeight = 250;
 
     return (
         <main className="container">
@@ -96,4 +98,5 @@ yarn dev
 ## Todo
 
 -   [ ] Auto compute the container height based on height of the active card
+-   [ ] Support touch/drag gesture based navigation
 -   [ ] Plugin system to enable custom transition styles

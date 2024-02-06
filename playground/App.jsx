@@ -1,6 +1,6 @@
 import React from "react";
 import { StackedCarousel } from "react-card-stack-carousel";
-import "react-card-stack-carousel/dist/styles.css";
+import "react-card-stack-carousel/styles/styles.css";
 
 export default function App() {
     const cardWidth = 200;

@@ -14,7 +14,7 @@
     ],
     "include": [
         "src/**/*",
-        "dist/**/*",
+        "styles/**/*",
         "types/**/*"
     ],
     "types": "types/index.d.ts",

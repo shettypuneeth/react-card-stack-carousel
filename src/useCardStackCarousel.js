@@ -127,6 +127,10 @@ export const useCardStackCarousel = (config) => {
     };
 
     const handleTransition = (nextDirection, nextTransition, getNextIndex) => {
+        if (totalCount === 1) {
+            return;
+        }
+
         direction.current = nextDirection;
         setTransitionState(nextTransition);
 
