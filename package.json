@@ -1,16 +1,20 @@
 {
     "name": "react-card-stack-carousel",
-    "version": "0.1.0",
-    "description": "A carousel component for React",
+    "version": "0.1.1",
+    "description": "A tiny configurable carousel component for React",
     "main": "index.js",
     "scripts": {
         "dev": "vite ./playground"
     },
+    "repository": {
+        "url": "https://github.com/shettypuneeth/react-card-stack-carousel",
+        "type": "git"
+    },
     "keywords": [
         "react",
         "carousel",
-        "image-carousel",
-        "card-stack"
+        "image carousel",
+        "card stack"
     ],
     "include": [
         "src/**/*",
