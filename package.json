@@ -1,10 +1,12 @@
 {
     "name": "react-card-stack-carousel",
-    "version": "0.1.1",
+    "version": "0.1.5",
     "description": "A tiny configurable carousel component for React",
-    "main": "index.js",
+    "main": "dist/index.js",
     "scripts": {
-        "dev": "vite ./playground"
+        "dev": "vite ./playground",
+        "build": "vite build",
+        "prepublish": "yarn build"
     },
     "repository": {
         "url": "https://github.com/shettypuneeth/react-card-stack-carousel",
@@ -17,16 +19,16 @@
         "card stack"
     ],
     "include": [
-        "src/**/*",
         "styles/**/*",
-        "types/**/*"
+        "types/**/*",
+        "dist/**/*"
     ],
     "types": "types/index.d.ts",
     "author": "Puneeth Shetty",
     "license": "MIT",
-    "dependencies": {
-        "react": "*",
-        "react-dom": "*"
+    "peerDependencies": {
+        "react": ">16",
+        "react-dom": ">16"
     },
     "devDependencies": {
         "@vitejs/plugin-react": "^4.2.1",
