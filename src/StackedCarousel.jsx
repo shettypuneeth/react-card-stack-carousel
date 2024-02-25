@@ -1,8 +1,8 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { useCardStackCarousel } from "./useCardStackCarousel";
 import CarouselItem from "./CarouselItem";
 import Navigation from "./Navigation";
-import { getRootHeight } from "./getRootHeight";
+import { useRootHeight } from "./useRootHeight";
 
 export function StackedCarousel(props) {
     const {
@@ -32,6 +32,7 @@ export function StackedCarousel(props) {
         transitionDuration,
         verticalOffset,
     });
+    const rootHeight = useRootHeight(height);
 
     const renderCards = () => {
         return React.Children.map(children, (child, index) => {
@@ -50,7 +51,6 @@ export function StackedCarousel(props) {
     };
 
     const { Root } = styleOverrides;
-    const rootHeight = useMemo(() => Number(getRootHeight(height)), [height]);
     const styles = Object.assign({}, Root, { height: rootHeight });
 
     return (

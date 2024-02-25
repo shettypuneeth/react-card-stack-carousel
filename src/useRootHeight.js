@@ -1,3 +1,9 @@
+import { useLayoutEffect, useEffect, useState } from "react";
+
+// SSR support
+const useIsomorphicLayoutEffect =
+    typeof window !== "undefined" ? useLayoutEffect : useEffect;
+
 const BREAKPOINTS = [
     { name: "2xl", value: 1536 },
     { name: "xl", value: 1280 },
@@ -6,7 +12,7 @@ const BREAKPOINTS = [
     { name: "sm", value: 640 },
 ];
 
-export const getRootHeight = (heightProp) => {
+const getRootHeight = (heightProp) => {
     if (!heightProp) {
         throw new Error("'height' prop is required");
     }
@@ -36,4 +42,15 @@ export const getRootHeight = (heightProp) => {
     } else {
         throw new Error(`Invalid height prop: ${heightProp}`);
     }
+};
+
+export const useRootHeight = (heightProp) => {
+    const [height, setHeight] = useState(0);
+
+    useIsomorphicLayoutEffect(() => {
+        const height = Number(getRootHeight(heightProp));
+        setHeight(height);
+    }, [heightProp]);
+
+    return height;
 };
