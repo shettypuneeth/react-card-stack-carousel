@@ -1,7 +1,7 @@
 import React from "react";
-import { useCardStackCarousel } from "./useCardStackCarousel";
 import CarouselItem from "./CarouselItem";
 import Navigation from "./Navigation";
+import { useCardStackCarousel } from "./useCardStackCarousel";
 import { useRootHeight } from "./useRootHeight";
 
 export function StackedCarousel(props) {
