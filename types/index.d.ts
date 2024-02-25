@@ -1,8 +1,11 @@
 declare module "react-card-stack-carousel" {
     import { ReactNode } from "react";
 
+    type StyleKeys = "Root" | "CarouselItem" | "Navigation" | "NavIcon";
+    type StyleOverrides = Record<StyleKeys, React.CSSProperties>;
+
     export interface StackedCarouselProps {
-        height: number;
+        height: number | string;
         children: ReactNode;
         autoplay?: boolean;
         autoplayInterval?: number;
@@ -13,6 +16,7 @@ declare module "react-card-stack-carousel" {
         onPrevious?: () => void;
         scaleFactor?: number;
         startIndex?: number;
+        styleOverrides?: StyleOverrides;
         transitionDuration?: number;
         verticalOffset?: number;
     }

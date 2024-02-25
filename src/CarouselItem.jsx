@@ -1,6 +1,6 @@
 import React from "react";
 
-export default React.memo(function CarousalItem(props) {
+export default React.memo(function CarouselItem(props) {
     const {
         easing,
         delay,
@@ -8,6 +8,7 @@ export default React.memo(function CarousalItem(props) {
         opacity,
         rotateX,
         scale,
+        styleOverride,
         tX,
         tY,
         tZ,
@@ -23,16 +24,17 @@ export default React.memo(function CarousalItem(props) {
         scale(${scale})
     `;
 
-    const style = {
+    const computedStyle = {
         opacity,
         transition,
         transitionDelay: `${delay}s, ${delay}s`,
         transform,
         zIndex,
     };
+    const mergedStyles = Object.assign({}, styleOverride, computedStyle);
 
     return (
-        <div style={style} className="rcsc-item">
+        <div style={mergedStyles} className="rcsc-item">
             {children}
         </div>
     );

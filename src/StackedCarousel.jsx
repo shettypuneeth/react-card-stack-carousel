@@ -1,21 +1,21 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { useCardStackCarousel } from "./useCardStackCarousel";
-import CarousalItem from "./CarousalItem";
+import CarouselItem from "./CarouselItem";
 import Navigation from "./Navigation";
+import { getRootHeight } from "./getRootHeight";
 
 export function StackedCarousel(props) {
     const {
         autoplay,
         autoplayInterval,
         children,
-        containerClassName,
         easingFunction,
         height,
-        navContainerClassName,
         onNext,
         onPrevious,
         scaleFactor,
         startIndex,
+        styleOverrides = {},
         transitionDuration,
         verticalOffset,
     } = props;
@@ -38,22 +38,27 @@ export function StackedCarousel(props) {
             const styles = getState(index);
 
             return (
-                <CarousalItem key={index} {...styles}>
+                <CarouselItem
+                    key={index}
+                    styleOverride={styleOverrides.CarouselItem}
+                    {...styles}
+                >
                     {child}
-                </CarousalItem>
+                </CarouselItem>
             );
         });
     };
 
-    const styles = { height };
-    const containerClasses = `rcsc-container ${containerClassName || ""}`;
+    const { Root } = styleOverrides;
+    const rootHeight = useMemo(() => Number(getRootHeight(height)), [height]);
+    const styles = Object.assign({}, Root, { height: rootHeight });
 
     return (
-        <section className={containerClasses} style={styles}>
+        <section className="rcsc-container" style={styles}>
             {renderCards()}
 
             <Navigation
-                className={navContainerClassName}
+                styleOverrides={styleOverrides}
                 onNext={handleNext}
                 onPrevious={handlePrevious}
             />

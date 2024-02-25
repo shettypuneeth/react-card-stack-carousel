@@ -52,23 +52,34 @@ export default function App() {
 }
 ```
 
+## Responsive height
+
+Height prop supports [Tailwind CSS based](https://tailwindcss.com/docs/responsive-design) breakpoint system to accommodate responsive design.
+To specify a height at a certain breakpoint, prefix the breakpoint name, followed by the ":" character.
+
+```html
+<!-- 200px on mobile (default), 500px on medium screens and 750px on large screens -->
+<StackedCarousel height="200 md:500 lg:750">{...}</StackedCarousel>
+```
+
+Visit [responsive-design](https://tailwindcss.com/docs/responsive-design) for the exhaustive list of supported breakpoints.
+
 ## Props
 
-| Prop                    | Type      | Default                              | Required | Description                                       |
-| ----------------------- | --------- | ------------------------------------ | -------- | ------------------------------------------------- |
-| `height`                | number    | -                                    | Yes      | Height of the carousel.                           |
-| `children`              | ReactNode | -                                    | Yes      | Children nodes of the carousel.                   |
-| `autoplay`              | boolean   | false                                | No       | Automatically transition between items.           |
-| `autoplayInterval`      | number    | 4000                                 | No       | Interval between automatic transitions.           |
-| `containerClassName`    | string    | -                                    | No       | CSS class name for the carousel container.        |
-| `easingFunction`        | string    | cubic-bezier(0.93, 0.01, 0.39, 1.01) | No       | Easing function to use for the transitions.       |
-| `navContainerClassName` | string    | -                                    | No       | CSS class name for the navigation container.      |
-| `onNext`                | function  | -                                    | No       | Callback function on moving to the next item.     |
-| `onPrevious`            | function  | -                                    | No       | Callback function on moving to the previous item. |
-| `scaleFactor`           | number    | 0.9                                  | No       | Scale factor for the carousel items.              |
-| `startIndex`            | number    | 0                                    | No       | Index of the item to start on.                    |
-| `transitionDuration`    | number    | 400                                  | No       | Duration of the transitions in milliseconds.      |
-| `verticalOffset`        | number    | 10                                   | No       | % vertical offset for the carousel items.         |
+| Prop                 | Type             | Default                              | Required | Description                                       |
+| -------------------- | ---------------- | ------------------------------------ | -------- | ------------------------------------------------- |
+| `height`             | number or string | -                                    | Yes      | Height of the carousel.                           |
+| `children`           | ReactNode        | -                                    | Yes      | Children nodes of the carousel.                   |
+| `autoplay`           | boolean          | false                                | No       | Automatically transition between items.           |
+| `autoplayInterval`   | number           | 4000                                 | No       | Interval between automatic transitions.           |
+| `easingFunction`     | string           | cubic-bezier(0.93, 0.01, 0.39, 1.01) | No       | Easing function to use for the transitions.       |
+| `onNext`             | function         | -                                    | No       | Callback function on moving to the next item.     |
+| `onPrevious`         | function         | -                                    | No       | Callback function on moving to the previous item. |
+| `styleOverrides`     | object           | -                                    | No       | Override default styles of the carousel           |
+| `scaleFactor`        | number           | 0.9                                  | No       | Scale factor for the carousel items.              |
+| `startIndex`         | number           | 0                                    | No       | Index of the item to start on.                    |
+| `transitionDuration` | number           | 400                                  | No       | Duration of the transitions in milliseconds.      |
+| `verticalOffset`     | number           | 10                                   | No       | % vertical offset for the carousel items.         |
 
 ## Running locally
 
