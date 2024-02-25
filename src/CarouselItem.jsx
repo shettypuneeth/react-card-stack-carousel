@@ -1,4 +1,5 @@
 import React from "react";
+import { getMergedStyles } from "./getMergedStyles";
 
 export default React.memo(function CarouselItem(props) {
     const {
@@ -31,10 +32,15 @@ export default React.memo(function CarouselItem(props) {
         transform,
         zIndex,
     };
-    const mergedStyles = Object.assign({}, styleOverride, computedStyle);
+
+    const [className, inlineStyle] = getMergedStyles(
+        "rcsc-item",
+        computedStyle,
+        styleOverride
+    );
 
     return (
-        <div style={mergedStyles} className="rcsc-item">
+        <div style={inlineStyle} className={className}>
             {children}
         </div>
     );

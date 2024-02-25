@@ -3,6 +3,7 @@ import CarouselItem from "./CarouselItem";
 import Navigation from "./Navigation";
 import { useCardStackCarousel } from "./useCardStackCarousel";
 import { useRootHeight } from "./useRootHeight";
+import { getMergedStyles } from "./getMergedStyles";
 
 export function StackedCarousel(props) {
     const {
@@ -50,11 +51,13 @@ export function StackedCarousel(props) {
         });
     };
 
-    const { Root } = styleOverrides;
-    const styles = Object.assign({}, Root, { height: rootHeight });
-
+    const [className, inlineStyle] = getMergedStyles(
+        "rcsc-container",
+        { height: rootHeight },
+        styleOverrides.Root
+    );
     return (
-        <section className="rcsc-container" style={styles}>
+        <section className={className} style={inlineStyle}>
             {renderCards()}
 
             <Navigation
