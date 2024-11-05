@@ -1,8 +1,8 @@
 {
     "name": "react-card-stack-carousel",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "description": "A tiny configurable carousel component for React",
-    "main": "dist/index.js",
+    "main": "index.js",
     "scripts": {
         "dev": "vite ./playground",
         "build": "vite build",

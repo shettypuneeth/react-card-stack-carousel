@@ -21,6 +21,9 @@ export function StackedCarousel(props) {
         verticalOffset,
     } = props;
 
+    const totalCount = React.Children.count(children);
+
+    const rootHeight = useRootHeight(height);
     const { handleNext, handlePrevious, getState } = useCardStackCarousel({
         autoplay,
         autoplayInterval,
@@ -29,11 +32,10 @@ export function StackedCarousel(props) {
         onPrevious,
         scaleFactor,
         startIndex,
-        totalCount: children.length,
+        totalCount,
         transitionDuration,
         verticalOffset,
     });
-    const rootHeight = useRootHeight(height);
 
     const renderCards = () => {
         return React.Children.map(children, (child, index) => {
@@ -60,11 +62,13 @@ export function StackedCarousel(props) {
         <section className={className} style={inlineStyle}>
             {renderCards()}
 
-            <Navigation
-                styleOverrides={styleOverrides}
-                onNext={handleNext}
-                onPrevious={handlePrevious}
-            />
+            {totalCount > 1 && (
+                <Navigation
+                    styleOverrides={styleOverrides}
+                    onNext={handleNext}
+                    onPrevious={handlePrevious}
+                />
+            )}
         </section>
     );
 }

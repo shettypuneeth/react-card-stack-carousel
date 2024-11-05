@@ -30,9 +30,7 @@ export const useCardStackCarousel = (config) => {
     } = config;
 
     const [activeIndex, setActiveIndex] = useState(startIndex);
-    const [transitionState, setTransitionState] = useState(
-        TRANSITION_STATE.Idle
-    );
+    const [transitionState, setTransitionState] = useState(TRANSITION_STATE.Idle);
     const direction = useRef(DIRECTION.None);
 
     const validateParams = () => {
@@ -160,7 +158,7 @@ export const useCardStackCarousel = (config) => {
 
     useEffect(() => {
         validateParams();
-    }, []);
+    }, [totalCount, startIndex]);
 
     useAutoPlay(config, handleNext);
 
@@ -173,10 +171,8 @@ export const useCardStackCarousel = (config) => {
 };
 
 const useAutoPlay = (config, actionCallback) => {
-    const {
-        autoplay = DEFAULT_AUTOPLAY,
-        autoplayInterval = DEFAULT_AUTOPLAY_INTERVAL,
-    } = config;
+    const { autoplay = DEFAULT_AUTOPLAY, autoplayInterval = DEFAULT_AUTOPLAY_INTERVAL } =
+        config;
     const autoplayTimer = useRef(null);
 
     useEffect(() => {
